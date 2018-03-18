@@ -1,20 +1,11 @@
-const { Pool } = require('pg')
-const config = require('./config.json');
-const pool = new Pool({
-  ...config,
-  max: 20,
-  idleTimeoutMillis: 30000,
-  connectionTimeoutMillis: 2000
-});
-
+const db = require('.');
+const User = require('../src/user');
 
 (async () => {
-  const client = await pool.connect();
-  const response = await client.query({
-    text: 'INSERT INTO users(secret) VALUES($1)',
-    values: ['secret']
-  });
-  console.log(response.rows);
-  client.release();
+  await User.create('password1');
+  await User.create('password2');
+  await User.create('password3');
+  await User.create('password4');
+  await User.create('password5');
+  process.exit();
 })();
-
