@@ -10,6 +10,18 @@ class AccessToken {
       })
     ));
   }
+
+  static findByUserId(id, { limit }) {
+    let text = `
+    SELECT * FROM access_tokens
+    WHERE user_id = $1
+    LIMIT $2
+    `;
+    return db.query({
+      text,
+      values: [id, limit]
+    });
+  }
 }
 
 module.exports = AccessToken;

@@ -3,10 +3,7 @@ module.exports = `
     id: ID!
     inserted_at: String!
     updated_at: String!
-  }
-
-  type Query {
-    viewer(token: String!): User
+    accessTokens(limit: Int = 5): [AccessToken!]
   }
 
   type AuthSession {
@@ -25,5 +22,10 @@ module.exports = `
   type Mutation {
     createUser(password: String!): User
     authenticate(id: String!, password: String!): AuthSession
+  }
+
+  type Query {
+    viewer(token: String!): User
+    accessTokens(token: String!, limit: Int = 5): [AccessToken!]
   }
 `;
